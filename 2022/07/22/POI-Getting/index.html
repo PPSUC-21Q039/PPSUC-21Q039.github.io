@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="帮一个师兄做的POI（Points of Interests）项目，项目本身倒不是很难，就是去访问API，只是数据量相对比较大而已，然后对于数据的处理有点复杂，其他就没什么了。 数据可能有点涉密，因此只放出一小部分用来测试： test.json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="POI_Getting">
+<meta property="og:url" content="http://example.com/2022/07/22/POI-Getting/index.html">
+<meta property="og:site_name" content="PG的博客">
+<meta property="og:description" content="帮一个师兄做的POI（Points of Interests）项目，项目本身倒不是很难，就是去访问API，只是数据量相对比较大而已，然后对于数据的处理有点复杂，其他就没什么了。 数据可能有点涉密，因此只放出一小部分用来测试： test.json">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-22T04:29:59.000Z">
+<meta property="article:modified_time" content="2022-07-22T04:35:18.960Z">
+<meta property="article:author" content="PG">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/07/22/POI-Getting/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>POI_Getting | PG的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PG的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/22/POI-Getting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="PG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PG的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          POI_Getting
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-07-22 12:29:59 / Modified: 12:35:18" itemprop="dateCreated datePublished" datetime="2022-07-22T12:29:59+08:00">2022-07-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/Programming/" itemprop="url" rel="index"><span itemprop="name">Programming</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>帮一个师兄做的POI（Points of Interests）项目，项目本身倒不是很难，就是去访问API，只是数据量相对比较大而已，然后对于数据的处理有点复杂，其他就没什么了。</p>
+<p>数据可能有点涉密，因此只放出一小部分用来测试：</p>
+<p><a href="test.json">test.json</a></p>
+<span id="more"></span>
+
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># In[ ]:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> requests.api <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line">INPUT_FILE = <span class="string">&#x27;test.json&#x27;</span> <span class="comment"># 测试用输入文件</span></span><br><span class="line"><span class="comment"># INPUT_FILE = &#x27;./station_split_by_h3.json&#x27; # 输入文件</span></span><br><span class="line">OUTPUT_FILE = <span class="string">&#x27;./result_dict_list_final_test.json&#x27;</span> <span class="comment"># 输出文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># User Key</span></span><br><span class="line"><span class="comment"># 以下五个为孟昊阳所有</span></span><br><span class="line">USER_KEY_1 = <span class="string">&#x27;aad49afa17b46e85e060bbe252f25a80&#x27;</span></span><br><span class="line">USER_KEY_2 = <span class="string">&#x27;677d0126e70c3b35671c08a59ea52d78&#x27;</span></span><br><span class="line">USER_KEY_3 = <span class="string">&#x27;615e912ab6aa668d068a32fd6ce01ff3&#x27;</span></span><br><span class="line">USER_KEY_4 = <span class="string">&#x27;6b70e5ffb62e110b02b25d8904ee4a9d&#x27;</span></span><br><span class="line">USER_KEY_5 = <span class="string">&#x27;9f00e38285dc77b127c98e1a128af2be&#x27;</span></span><br><span class="line"><span class="comment"># 以下五个为胡文强所有</span></span><br><span class="line">USER_KEY_6 = <span class="string">&#x27;ebd9973f5dfce59e6dc2972dac0f4e39&#x27;</span></span><br><span class="line">USER_KEY_7 = <span class="string">&#x27;241153183e1f4ee347fdfadf9426174e&#x27;</span></span><br><span class="line">USER_KEY_8 = <span class="string">&#x27;818b3586534a2ae2c95baa0c371f483e&#x27;</span></span><br><span class="line">USER_KEY_9 = <span class="string">&#x27;65b7b13fbc79f8fd98fda675de28261e&#x27;</span></span><br><span class="line">USER_KEY_10 = <span class="string">&#x27;2709fc90cb839fd90dd020034a5f1db7&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">user_key</span>():</span><br><span class="line">    USER_KEY_LIST = [USER_KEY_1, USER_KEY_2, USER_KEY_3, USER_KEY_4, USER_KEY_5, USER_KEY_6, USER_KEY_7, USER_KEY_8, USER_KEY_9, USER_KEY_10]</span><br><span class="line">    <span class="keyword">return</span> random.choice(USER_KEY_LIST)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_poi</span>(<span class="params">page,processeed_position, result_types</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Url Example: https://restapi.amap.com/v5/place/polygon?key=aad49afa17b46e85e060bbe252f25a80&amp;polygon=地址&amp;types=类型代码</span></span><br><span class="line">        url = <span class="string">&#x27;https://restapi.amap.com/v5/place/polygon?&#x27;</span> + <span class="string">&#x27;key=&#x27;</span> + <span class="built_in">str</span>(user_key()).strip() + <span class="string">&#x27;&amp;polygon=&#x27;</span> + <span class="built_in">str</span>(processeed_position).strip() + <span class="string">&#x27;&amp;types=&#x27;</span> + <span class="built_in">str</span>(result_types).strip() + <span class="string">&#x27;&amp;page_size=24&#x27;</span> + <span class="string">&#x27;&amp;page_num=&#x27;</span> + <span class="built_in">str</span>(page).strip()</span><br><span class="line">        response = urllib.request.urlopen(url)</span><br><span class="line">        returned_data = json.load(response)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (returned_data[<span class="string">&quot;status&quot;</span>] == <span class="string">&#x27;1&#x27;</span>):</span><br><span class="line">            <span class="keyword">if</span> (returned_data[<span class="string">&quot;count&quot;</span>] == <span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">                <span class="keyword">return</span> [<span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>] <span class="comment"># 单纯没查到而已</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="string">&#x27;1&#x27;</span>, returned_data[<span class="string">&quot;count&quot;</span>], returned_data[<span class="string">&quot;pois&quot;</span>]) <span class="comment"># 返回获取到 POI 信息</span></span><br><span class="line">        <span class="keyword">if</span> (returned_data[<span class="string">&quot;status&quot;</span>] == <span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">            <span class="keyword">return</span> [<span class="string">&#x27;-1&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>] <span class="comment"># 查询失败, -1: Error: 查询状态有误!</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&quot;Error: get_poi() 访问 API 失败!&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;-2&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_location</span>(<span class="params">returned_information_format, input_longtitude, input_latitude</span>):</span><br><span class="line">    <span class="comment"># Url example: https://restapi.amap.com/v3/geocode/regeo?output=xml&amp;location=116.310003,39.991957&amp;key=用户的key&amp;radius=1000&amp;extensions=类型 (all/base)</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">str</span>(input_longtitude).strip() != <span class="string">&#x27;NaN&#x27;</span> <span class="keyword">and</span> <span class="built_in">str</span>(input_latitude).strip() != <span class="string">&#x27;NaN&#x27;</span>):</span><br><span class="line">        url = <span class="string">&#x27;https://restapi.amap.com/v3/geocode/regeo?output=&#x27;</span> + <span class="built_in">str</span>(returned_information_format).strip() + <span class="string">&#x27;xml&amp;location=&#x27;</span> + <span class="built_in">str</span>(input_longtitude).strip() + <span class="string">&#x27;,&#x27;</span> + <span class="built_in">str</span>(input_latitude).strip() + <span class="string">&#x27;&amp;key=&#x27;</span> + <span class="built_in">str</span>(user_key()).strip() + <span class="string">&#x27;&amp;radius=1000&#x27;</span> + <span class="string">&#x27;&amp;extensions=base&#x27;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = urllib.request.urlopen(url)</span><br><span class="line">            returned_data = json.load(response)</span><br><span class="line">            <span class="keyword">return</span> returned_data[<span class="string">&quot;regeocode&quot;</span>][<span class="string">&quot;formatted_address&quot;</span>]</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span> (<span class="string">&quot;Error: get_location() 访问 API 失败!&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;Error: 查询状态有误!&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: 输入有误!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start_time = time.time()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(INPUT_FILE, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>) <span class="keyword">as</span> fp: <span class="comment"># 目前为调试用</span></span><br><span class="line">            json_data = json.load(fp)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&#x27;打开文件&#x27;</span> + INPUT_FILE + <span class="string">&#x27;错误!&#x27;</span>)</span><br><span class="line">        quit()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 统计数据</span></span><br><span class="line">    police_station_quantity = <span class="number">0</span> <span class="comment"># 派出所数量</span></span><br><span class="line">    search_success = <span class="number">0</span> <span class="comment"># 搜索到的数量</span></span><br><span class="line">    search_fail = <span class="number">0</span> <span class="comment"># 未搜索到的数量</span></span><br><span class="line">    search_error = <span class="number">0</span> <span class="comment"># 发生错误的数量</span></span><br><span class="line"></span><br><span class="line">    result_dict = &#123;&#125; <span class="comment"># 结果</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> police_station_key, value <span class="keyword">in</span> json_data.items(): <span class="comment"># police_station_key 为该派出所的名称，vlaue 为其后的所有键值对</span></span><br><span class="line">        <span class="built_in">print</span>(police_station_quantity + <span class="number">1</span>, <span class="string">&#x27;: 正在处理:&#x27;</span>, police_station_key)</span><br><span class="line">        result_dict [police_station_key] = &#123;&#125; <span class="comment"># 以派出所名称为 Dict 的第一个 Key</span></span><br><span class="line">        <span class="comment"># result_list [police_station_key] = &#123;&#125; # 以派出所名称为 List 的第一个元素</span></span><br><span class="line">        police_station_quantity = police_station_quantity + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> hexagon_id_key <span class="keyword">in</span> value: <span class="comment"># hexagon_id_key 为每个六边形区域的ID</span></span><br><span class="line">            <span class="built_in">print</span> (<span class="string">&#x27;  &#x27;</span>, hexagon_id_key)</span><br><span class="line">            result_dict [police_station_key] [hexagon_id_key] = [] <span class="comment"># 以这个为名的列表</span></span><br><span class="line">            material_position_data = <span class="built_in">str</span>(value[hexagon_id_key]) <span class="comment"># value[hexagon_id_key] 为六边形顶点的坐标值的集合，共七个</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 处理得到适合 get_poi() 函数输入的坐标值</span></span><br><span class="line">            processed_position = material_position_data.replace(<span class="string">&#x27;[[&#x27;</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;&#x27;</span>).replace(<span class="string">&#x27;],[&#x27;</span>, <span class="string">&#x27;|&#x27;</span>).replace(<span class="string">&#x27;]]&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">            splitted_position = <span class="built_in">str</span>(processed_position).split(<span class="string">&#x27;|&#x27;</span>)</span><br><span class="line">            result_position = <span class="string">&#x27;&#x27;</span></span><br><span class="line">            hex_len=<span class="built_in">len</span>(splitted_position)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,hex_len):</span><br><span class="line">                material_splitted_pairs = splitted_position[i].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">                pocessed_splitted_pairs = <span class="built_in">str</span>(material_splitted_pairs[<span class="number">1</span>]).strip()[<span class="number">0</span>:<span class="number">10</span>] + <span class="string">&#x27;,&#x27;</span> + <span class="built_in">str</span>(material_splitted_pairs[<span class="number">0</span>]).strip()[<span class="number">0</span>:<span class="number">9</span>] <span class="comment"># 完成字符串顺序的调换 (经度 + 纬度) 并截断</span></span><br><span class="line">                result_position = result_position + <span class="built_in">str</span>(pocessed_splitted_pairs).strip() + <span class="string">&#x27;|&#x27;</span></span><br><span class="line">            result_position = result_position[:-<span class="number">1</span>] <span class="comment"># 删掉多余的 |</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 计算六边形的中心点坐标</span></span><br><span class="line">            center_position_longtitude = <span class="number">0</span> <span class="comment"># 经度</span></span><br><span class="line">            center_position_latitude = <span class="number">0</span> <span class="comment"># 纬度</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">0</span>,hex_len): <span class="comment"># 注意只求前六个的和</span></span><br><span class="line">                material_splitted_pairs = splitted_position[i].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">                center_position_longtitude = center_position_longtitude + <span class="built_in">float</span>(<span class="built_in">str</span>(material_splitted_pairs[<span class="number">1</span>]).strip()[<span class="number">0</span>:<span class="number">10</span>])</span><br><span class="line">                center_position_latitude = center_position_latitude + <span class="built_in">float</span>(<span class="built_in">str</span>(material_splitted_pairs[<span class="number">0</span>]).strip()[<span class="number">0</span>:<span class="number">9</span>])</span><br><span class="line">            center_position_longtitude = center_position_longtitude / hex_len <span class="comment"># 经度</span></span><br><span class="line">            center_position_latitude = center_position_latitude / hex_len <span class="comment"># 纬度</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 最TM耗时，就离谱</span></span><br><span class="line">            <span class="keyword">for</span> page_index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">                [returned_poi_status, returned_poi_info_count, returned_poi_info_details] = get_poi(page_index+<span class="number">1</span>,result_position, <span class="string">&#x27;130000|150000&#x27;</span>) <span class="comment"># Search Types 为：政府机构及社会团体 (130000) 与 交通设施服务 (150000)，用 &#x27;|&#x27; 分隔</span></span><br><span class="line"></span><br><span class="line">                result_dict [police_station_key] [hexagon_id_key] = &#123;<span class="string">&quot;count&quot;</span>: returned_poi_info_count, <span class="string">&quot;center_point&quot;</span>: &#123;<span class="string">&quot;center_position_longtitude&quot;</span>: center_position_longtitude, <span class="string">&quot;center_position_latitude&quot;</span>: center_position_latitude, <span class="string">&quot;center_location&quot;</span>: get_location(<span class="string">&quot;json&quot;</span>, center_position_longtitude, center_position_latitude)&#125;, <span class="string">&quot;政府机构及社会团体&quot;</span>: [], <span class="string">&quot;交通设施服务&quot;</span>: []&#125; <span class="comment"># 初始化第三层</span></span><br><span class="line"></span><br><span class="line">                <span class="built_in">print</span> (<span class="string">&#x27;        Count:&#x27;</span>, returned_poi_info_count)</span><br><span class="line"><span class="comment">#                 print（str（returned_poi_status））</span></span><br><span class="line">                <span class="keyword">if</span> (returned_poi_status == <span class="string">&#x27;1&#x27;</span>): <span class="comment"># &#x27;0&#x27;: &#x27;Error: 未搜索到结果!&#x27;, &#x27;-1&#x27;: &#x27;Error: 查询状态有误! 请检查用户 Key 是否合法!&#x27;, &#x27;-2&#x27;: &#x27;网络错误&#x27;（在 try 里面添加）</span></span><br><span class="line">                    <span class="comment"># print (returned_poi_info_count)</span></span><br><span class="line">                    <span class="comment"># print (returned_poi_info_details)</span></span><br><span class="line">                    search_success = search_success + <span class="number">1</span></span><br><span class="line">                    result_count = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">while</span> <span class="built_in">int</span>(result_count) &lt; <span class="built_in">int</span>(returned_poi_info_count):</span><br><span class="line">                        returned_poi_info_dict = returned_poi_info_details[result_count] <span class="comment"># 此时已经转为 dict 类型的数据</span></span><br><span class="line">                        <span class="comment"># 以下为返回信息中各个值的提取</span></span><br><span class="line">                        returned_poi_name = returned_poi_info_dict[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">                        returned_poi_id = returned_poi_info_dict[<span class="string">&quot;id&quot;</span>]</span><br><span class="line">                        returned_poi_location = returned_poi_info_dict[<span class="string">&quot;location&quot;</span>]</span><br><span class="line">                        returned_poi_type = returned_poi_info_dict[<span class="string">&quot;type&quot;</span>]</span><br><span class="line">                        returned_poi_typecode = returned_poi_info_dict[<span class="string">&quot;typecode&quot;</span>]</span><br><span class="line"></span><br><span class="line">                        <span class="comment"># result_dict [police_station_key] [hexagon_id_key].append(&#123;&quot;name&quot;: returned_poi_name, &quot;id&quot;: returned_poi_id, &quot;type&quot;: returned_poi_type, &quot;typecode&quot;: returned_poi_typecode, &quot;location&quot;: returned_poi_location&#125;)</span></span><br><span class="line">                        <span class="keyword">if</span> (returned_poi_typecode[<span class="number">0</span>:<span class="number">2</span>] == <span class="string">&#x27;13&#x27;</span>):</span><br><span class="line">                            result_dict [police_station_key] [hexagon_id_key] [<span class="string">&quot;政府机构及社会团体&quot;</span>].append (&#123;<span class="string">&quot;name&quot;</span>: returned_poi_name, <span class="string">&quot;id&quot;</span>: returned_poi_id, <span class="string">&quot;type&quot;</span>: returned_poi_type, <span class="string">&quot;typecode&quot;</span>: returned_poi_typecode, <span class="string">&quot;location&quot;</span>: returned_poi_location&#125;)</span><br><span class="line">                        <span class="keyword">elif</span> (returned_poi_typecode[<span class="number">0</span>:<span class="number">2</span>] == <span class="string">&#x27;15&#x27;</span>):</span><br><span class="line">                            result_dict [police_station_key] [hexagon_id_key] [<span class="string">&quot;交通设施服务&quot;</span>].append (&#123;<span class="string">&quot;name&quot;</span>: returned_poi_name, <span class="string">&quot;id&quot;</span>: returned_poi_id, <span class="string">&quot;type&quot;</span>: returned_poi_type, <span class="string">&quot;typecode&quot;</span>: returned_poi_typecode, <span class="string">&quot;location&quot;</span>: returned_poi_location&#125;)</span><br><span class="line">                        result_count = result_count + <span class="number">1</span></span><br><span class="line">                        <span class="comment"># print (result_dict)</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">elif</span> (returned_poi_status == <span class="string">&#x27;0&#x27;</span>):</span><br><span class="line">                    <span class="comment"># print (&#x27;Error: 未搜索到结果!&#x27;)</span></span><br><span class="line">                    result_dict [police_station_key] [hexagon_id_key] [<span class="number">0</span>] = <span class="string">&#x27;0&#x27;</span> <span class="comment"># 第 0 个就是 count 所处的位置</span></span><br><span class="line">                    search_fail = search_fail + <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span> (returned_poi_status == <span class="string">&#x27;-1&#x27;</span>):</span><br><span class="line">                    <span class="built_in">print</span> (<span class="string">&#x27;Error: 查询状态有误! 请检查用户 Key 是否合法!&#x27;</span>)</span><br><span class="line">                    search_error = search_error + <span class="number">1</span></span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">if</span> returned_poi_info_count==<span class="string">&quot; &quot;</span> <span class="keyword">or</span> returned_poi_info_count==<span class="string">&quot;&quot;</span>:</span><br><span class="line">                    poi_count=<span class="number">0</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    poi_count=<span class="built_in">int</span>(returned_poi_info_count)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;第&quot;</span>+<span class="built_in">str</span>(page_index)+<span class="string">&quot;页&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> poi_count&lt;<span class="number">20</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">            <span class="comment"># time.sleep(1000) # 休眠 1000 ms</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 写入字典</span></span><br><span class="line">    json_str = json.dumps(result_dict)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(OUTPUT_FILE, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> json_file:</span><br><span class="line">        json_file.write(json_str)</span><br><span class="line">    end_time = time.time()</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&#x27;程序运行花费:&#x27;</span>, end_time - start_time, <span class="string">&#x27;共处理派出所数量:&#x27;</span>, police_station_quantity, <span class="string">&#x27;, 处理区块数量:&#x27;</span>, search_success + search_fail + search_error, <span class="string">&#x27;, 其中搜索到了:&#x27;</span>, search_success, <span class="string">&#x27;, 未搜索到:&#x27;</span>, search_fail, <span class="string">&#x27;, 发生错误:&#x27;</span>, search_error, <span class="string">&#x27;, 输出文件已写入到当前目录下的&#x27;</span> + OUTPUT_FILE + <span class="string">&#x27;中&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># In[ ]:</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/24/2022-05-24-%E8%AE%BA%E8%BE%A9%E8%AF%81%E6%B3%95%E5%9C%A8%E5%85%AC%E5%AE%89%E7%BD%91%E7%BB%9C%E7%8A%AF%E7%BD%AA%E4%BE%A6%E6%9F%A5%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="prev" title="论辩证法在公安网络犯罪侦查中的实际应用">
+      <i class="fa fa-chevron-left"></i> 论辩证法在公安网络犯罪侦查中的实际应用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/22/Information-Analyzing/" rel="next" title="Information-Analyzing">
+      Information-Analyzing <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">PG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PG</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
